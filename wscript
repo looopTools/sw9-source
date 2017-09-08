@@ -11,14 +11,16 @@ def build(bld):
         'DEFINES_STEINWURF_VERSION',
         'STEINWURF_KODO_RLNC_VERSION="{}"'.format(VERSION))
 
+
+    bld.program(features='cxx',
+                source='./src/sw9-source/full_rlnc_benchmark.cpp',
+                target='full_rlnc_benchmark',
+                use=['kodo_rlnc_includes'])
     # Export kodo-rlnc includes
-    bld(name='rlnc-benchmark',
-        includes='./src',
-        export_includes='./src',
-        use=['cpuid', 'fifi', 'boost_includes', 'boost_iostreams',
-             'allocate_includes','recycle_includes', 'meta_includes',
-             'hex_includes', 'storage_includes', 'endian_includes',
-             'kodo_core_includes', 'kodo_rlnc_includes'])
+    # bld(name='rlnc-benchmark',
+    #     includes='./src',
+    #     export_includes='./src',
+    #     use=['kodo_rlnc_includes'])
 
     # if bld.is_toplevel():
 

@@ -1,4 +1,5 @@
 #include <cstdint>
+#include <iostream>
 
 #include <storage/storage.hpp>
 #include <fifi/fifi_utils.hpp>
@@ -12,7 +13,7 @@ int main()
 
     const uint32_t generationSize = 3;
 
-    const symbol_size = 1;
-
+    const uint32_t symbol_size = 1;
+    std::cout << "HELLO" << std::endl;
     return 0;
 }
