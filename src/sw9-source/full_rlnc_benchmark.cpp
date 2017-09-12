@@ -9,7 +9,7 @@
 
 int main()
 {
-    using field_type = fifi::binary;
+    using field_type = fifi::binary8;
 
     const uint32_t generationSize = 3;
 
