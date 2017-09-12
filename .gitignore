@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+resolved_dependencies/
+resolve_symlinks/
+build/
