@@ -34,3 +34,4 @@
 resolved_dependencies/
 resolve_symlinks/
 build/
+.lock-waf_linux_build
