@@ -13,8 +13,8 @@ def build(bld):
 
 
     bld.program(features='cxx',
-                source='./src/sw9-source/full_rlnc_benchmark.cpp',
-                target='full_rlnc_benchmark',
+                source='./src/sw9-source/full_vector_benchmark.cpp',
+                target='full_vector_benchmark',
                 use=['kodo_rlnc_includes'])
     # Export kodo-rlnc includes
     # bld(name='rlnc-benchmark',
