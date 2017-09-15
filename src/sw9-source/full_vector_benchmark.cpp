@@ -1,3 +1,5 @@
+// Full Vector Benchmark
+
 #include "config.hpp"
 
 #include <chrono>
@@ -69,12 +71,6 @@ int main()
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
 
     std::cout << "Differens " << diff.count() << std::endl;
-
-
-
-
-
-
 
     std::cout << "HELLO" << std::endl;
     return 0;
