@@ -12,5 +12,4 @@ private:
     uint32_t m_symbol_size;
     uint32_t m_generation_size;
     finite_field m_field;
-
 };
