@@ -40,14 +40,6 @@ std::tuple<std::chrono::nanoseconds, std::chrono::nanoseconds> benchmark(uint32_
     }
     auto end = std::chrono::high_resolution_clock::now();
 
-    return std::make_tuple(std::chrono::duration_cast<std::chrono::nanoseconds>(start.count),
-                           std::chrono::duration_cast<std::chrono::nanoseconds>(end));
-    // auto diff =
-    //     std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-
-
-
-    // std::cout << "Differens " << diff.count() << std::endl;
-
-    // std::cout << "HELLO" << std::endl;
+    return std::make_tuple(std::chrono::duration_cast<std::chrono::nanoseconds>(start.time_since_epoch()),
+                           std::chrono::duration_cast<std::chrono::nanoseconds>(end.time_since_epoch()));
 }

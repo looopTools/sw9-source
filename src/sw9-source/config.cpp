@@ -1,7 +1,17 @@
 #include "config.hpp"
 
+#include <fstream>
+#include <string>
+
 config::config(std::string file_path) {
 
+    std::ifstream infile(file_path);
+
+    std::string
+
+}
+
+std::string config::extract_by_key(std::string data, std::string key) {
 
 }
 
