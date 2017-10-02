@@ -1,17 +1,21 @@
+#include "result.hpp"
+
 #include <chrono>
 #include <algorithm>
 #include <cassert>
 #include <cstdint>
 #include <ctime>
 #include <vector>
-#include <tuple>
 #include <storage/storage.hpp>
-
 #include <iostream>
+
+bool write_result(std::vector<result> results) {
+    return true;
+}
 
 // change to return to match data
 template<typename Code>
-std::tuple<std::chrono::microseconds, std::chrono::microseconds> benchmark(uint32_t generation_size,
+result benchmark(uint32_t generation_size,
                uint32_t symbol_size,
                uint32_t data_size)
 {
@@ -42,6 +46,31 @@ std::tuple<std::chrono::microseconds, std::chrono::microseconds> benchmark(uint3
     }
     auto end = std::chrono::high_resolution_clock::now();
 
-    return std::make_tuple(std::chrono::duration_cast<std::chrono::microseconds>(start.time_since_epoch()),
-                           std::chrono::duration_cast<std::chrono::microseconds>(end.time_since_epoch()));
+    auto s = std::chrono::duration_cast<std::chrono::microseconds>(
+        start.time_since_epoch());
+    auto e = std::chrono::duration_cast<std::chrono::microseconds>(
+        end.time_since_epoch());
+    return result(s, e, data_size);
+}
+
+template<typename Code>
+void run_benchmark(uint32_t itterations, uint32_t generation_size,
+                   uint32_t symbol_size, uint32_t data_size)
+{
+
+    std::cout << "Experiment Started " << std::endl;
+
+    std::vector<result> results;
+    for (uint32_t i = 0; i < itterations; ++i) {
+        results.push_back(benchmark<Code>(generation_size,
+                                          symbol_size, data_size));
+        std::cout << "...";
+    }
+
+    std::cout << std::endl;
+
+
+    for (auto res : results) {
+        std::cout << res.latency() << std::endl;
+    }
 }

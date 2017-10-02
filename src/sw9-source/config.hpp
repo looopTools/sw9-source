@@ -1,17 +1,66 @@
+#pragma once
+
 #include <string>
 
-enum finite_field {binary, binary8}; // TODO: Extend
 class config
 {
 public:
-    config(std::string file_path);
-    uint32_t symbol_size();
-    uint32_t generation_size();
-    finite_field field();
-private:
-    std::string extract_by_key(std::string data, std::string key);
+    config()
+    {}
+
+    uint32_t symbol_size()
+    {
+        return m_symbol_size;
+    }
+
+    void set_symbol_size(uint32_t symbol_size)
+    {
+        m_symbol_size = symbol_size;
+    }
+
+    uint32_t generation_size()
+    {
+        return m_generation_size;
+    }
+
+    void set_generation_size(uint32_t generation_size)
+    {
+        m_generation_size = generation_size;
+    }
+
+    uint32_t data_size()
+    {
+        return m_data_size;
+    }
+
+    void set_data_size(uint32_t data_size)
+    {
+        m_data_size = data_size;
+    }
+
+    uint32_t itterations()
+    {
+        return m_itterations;
+    }
+
+    void set_itterations(uint32_t itterations)
+    {
+        m_itterations = itterations;
+    }
+
+    uint16_t field()
+    {
+        return m_field;
+    }
+
+    void set_field(uint16_t field)
+    {
+        m_field = field;
+    }
 private:
     uint32_t m_symbol_size;
     uint32_t m_generation_size;
-    finite_field m_field;
+    uint32_t m_data_size;
+    uint32_t m_itterations;
+    uint16_t m_field;
 };
