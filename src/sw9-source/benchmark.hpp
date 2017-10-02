@@ -7,9 +7,11 @@
 #include <tuple>
 #include <storage/storage.hpp>
 
+#include <iostream>
+
 // change to return to match data
 template<typename Code>
-std::tuple<std::chrono::nanoseconds, std::chrono::nanoseconds> benchmark(uint32_t generation_size,
+std::tuple<std::chrono::microseconds, std::chrono::microseconds> benchmark(uint32_t generation_size,
                uint32_t symbol_size,
                uint32_t data_size)
 {
@@ -40,6 +42,6 @@ std::tuple<std::chrono::nanoseconds, std::chrono::nanoseconds> benchmark(uint32_
     }
     auto end = std::chrono::high_resolution_clock::now();
 
-    return std::make_tuple(std::chrono::duration_cast<std::chrono::nanoseconds>(start.time_since_epoch()),
-                           std::chrono::duration_cast<std::chrono::nanoseconds>(end.time_since_epoch()));
+    return std::make_tuple(std::chrono::duration_cast<std::chrono::microseconds>(start.time_since_epoch()),
+                           std::chrono::duration_cast<std::chrono::microseconds>(end.time_since_epoch()));
 }
