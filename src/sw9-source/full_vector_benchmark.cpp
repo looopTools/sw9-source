@@ -11,6 +11,8 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
+#include <sstream>
+
 #include <storage/storage.hpp>
 #include "config.hpp"
 #include "config_reader.hpp"
@@ -32,20 +34,48 @@ int main(int argc, char* argv[])
     }
 
     std::string config_file = argv[1];
+    std::string result_folder = argv[2];
+    std::string benchmark_test = "full_vector_encoder";
 
     auto config = read_config(config_file);
     std::cout << config.symbol_size() << std::endl;
 
+    std::vector<result> results;
+
     if (config.field() == 0)
     {
-        run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary>>(
+        results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary>>(
             config.itterations(), config.generation_size(),
-            config.symbol_size(), config.data_size());
+            config.symbol_size());
     } else if (config.field() == 1)
     {
-        run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary8>>(
+        results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary8>>(
             config.itterations(), config.generation_size(),
-            config.symbol_size(), config.data_size());
+            config.symbol_size());
+    }
+
+    if (results.empty()) {
+        std::cout << "Something is wrong" << std::endl;
+        return 0;
+    }
+
+    for (auto res : results)
+    {
+        std::cout << res.to_string() << std::endl;
+    }
+
+    std::time_t time_stamp = std::time(nullptr);
+
+    std::stringstream ss;
+    ss << result_folder  << time_stamp << "_" << benchmark_test << "_"
+       << config.generation_size() << "_" << config.symbol_size();
+    auto result_path = ss.str();
+
+    auto complete = write_result(results, result_path);
+    if (complete)
+    {
+        std::cout << "bencmark done and result written to "
+                  << result_path << std::endl;
     }
 
     return 0;

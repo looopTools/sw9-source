@@ -7,23 +7,39 @@
 #include <ctime>
 #include <vector>
 #include <storage/storage.hpp>
-#include <iostream>
 
-bool write_result(std::vector<result> results) {
+#include <string>
+
+// Used for file writing
+#include <iostream>
+#include <fstream>
+
+bool write_result(std::vector<result> results, std::string file_path)
+{
+    std::ofstream result_file;
+    result_file.open(file_path);
+    for (auto result : results)
+    {
+        result_file << result.to_string() << std::endl;
+    }
+    result_file.close();
     return true;
 }
 
 // change to return to match data
+// data size with generation size and symbols = gen * symbs
 template<typename Code>
 result benchmark(uint32_t generation_size,
-               uint32_t symbol_size,
-               uint32_t data_size)
+               uint32_t symbol_size)
 {
     // Seed random generator
     srand(static_cast<uint32_t>(time(0)));
 
     typename Code::factory factory(generation_size, symbol_size);
     auto encoder = factory.build();
+
+    // CODING ALWAYS
+    encoder->set_systematic_off();
 
     // https://github.com/steinwurf/kodo-rlnc/blob/master/examples/encode_decode_simple/encode_decode_simple.cpp
     // https://github.com/steinwurf/kodo-rlnc/blob/master/examples/encode_decode_separate/encode_decode_separate.cpp
@@ -40,6 +56,8 @@ result benchmark(uint32_t generation_size,
     encoder->set_const_symbols(storage::storage(data));
 
     auto start = std::chrono::high_resolution_clock::now();
+
+    // INCREASE IF SYS IS OFF
     for (auto& payload : payloads)
     {
         encoder->write_payload(payload.data());
@@ -50,12 +68,12 @@ result benchmark(uint32_t generation_size,
         start.time_since_epoch());
     auto e = std::chrono::duration_cast<std::chrono::microseconds>(
         end.time_since_epoch());
-    return result(s, e, data_size);
+    return result(s, e, generation_size, symbol_size);
 }
 
 template<typename Code>
-void run_benchmark(uint32_t itterations, uint32_t generation_size,
-                   uint32_t symbol_size, uint32_t data_size)
+std::vector<result> run_benchmark(uint32_t itterations, uint32_t generation_size,
+                   uint32_t symbol_size)
 {
 
     std::cout << "Experiment Started " << std::endl;
@@ -63,14 +81,9 @@ void run_benchmark(uint32_t itterations, uint32_t generation_size,
     std::vector<result> results;
     for (uint32_t i = 0; i < itterations; ++i) {
         results.push_back(benchmark<Code>(generation_size,
-                                          symbol_size, data_size));
+                                          symbol_size));
         std::cout << "...";
     }
 
-    std::cout << std::endl;
-
-
-    for (auto res : results) {
-        std::cout << res.latency() << std::endl;
-    }
+    return results;
 }
