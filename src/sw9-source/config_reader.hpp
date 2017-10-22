@@ -36,7 +36,7 @@ void set_parameter(config* conf, int setting, int line_number)
     } else if (line_number == 1) {
         conf->set_symbol_size(setting);
     } else if (line_number == 2) {
-        conf->set_data_size(setting);
+        conf->set_reducancy(setting);
     } else if (line_number == 3){
         conf->set_field(setting);
     } else {

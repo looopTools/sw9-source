@@ -28,14 +28,14 @@ public:
         m_generation_size = generation_size;
     }
 
-    uint32_t data_size()
+    uint32_t redudancy()
     {
-        return m_data_size;
+        return m_reducancy;
     }
 
-    void set_data_size(uint32_t data_size)
+    void set_reducancy(uint32_t reducancy)
     {
-        m_data_size = data_size;
+        m_reducancy = reducancy;
     }
 
     uint32_t itterations()
@@ -60,7 +60,7 @@ public:
 private:
     uint32_t m_symbol_size;
     uint32_t m_generation_size;
-    uint32_t m_data_size;
+    uint32_t m_reducancy;
     uint32_t m_itterations;
     uint16_t m_field;
 };
