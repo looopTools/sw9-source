@@ -10,3 +10,10 @@ file they have the following format:
     symbol_size:UINT32
     data_size:UINT32
     finit_field:UINT32
+
+
+## Data Analysis using Jupyter Notebook
+
+This project relies on Jupyter Notebooks and Python3 for data analysis. The installation process for Jupyter Note book kan be found here [installation][:1]
+
+[:1] http://jupyter.org/install.html Jupyter Notebook installation
