@@ -6,6 +6,8 @@
 #include <cstdint>
 #include <ctime>
 #include <vector>
+#include <cstdlib>
+
 #include <storage/storage.hpp>
 
 #include <string>
@@ -26,11 +28,18 @@ bool write_result(std::vector<result> results, std::string file_path)
     return true;
 }
 
+uint32_t random_index(uint32_t length)
+{
+    std::srand(std::time(0)); // use current time as seed for random generator
+    return static_cast<uint32_t>(std::rand() % length - 1);  // generates a random number between 0 and length -1
+
+}
+
 // change to return to match data
 // data size with generation size and symbols = gen * symbs
 template<typename Code>
 result benchmark(uint32_t generation_size,
-               uint32_t symbol_size)
+                 uint32_t symbol_size, uint32_t redundancy)
 {
     // Seed random generator
     srand(static_cast<uint32_t>(time(0)));
@@ -60,8 +69,16 @@ result benchmark(uint32_t generation_size,
     // INCREASE IF SYS IS OFF
     for (auto& payload : payloads)
     {
-        encoder->write_payload(payload.data());
+         encoder->write_payload(payload.data());
     }
+
+    for (uint32_t i = 0; i < redundancy; ++i)
+    {
+        encoder->write_payload(payloads[random_index(payloads.size())].data());
+        // encoder->write_payload(payloads[random_index(payloads.length())];
+    }
+
+
     auto end = std::chrono::high_resolution_clock::now();
 
     auto s = std::chrono::duration_cast<std::chrono::microseconds>(
@@ -73,7 +90,7 @@ result benchmark(uint32_t generation_size,
 
 template<typename Code>
 std::vector<result> run_benchmark(uint32_t itterations, uint32_t generation_size,
-                   uint32_t symbol_size)
+                                  uint32_t symbol_size, uint32_t redundancy)
 {
 
     std::cout << "Experiment Started " << std::endl;
@@ -81,7 +98,7 @@ std::vector<result> run_benchmark(uint32_t itterations, uint32_t generation_size
     std::vector<result> results;
     for (uint32_t i = 0; i < itterations; ++i) {
         results.push_back(benchmark<Code>(generation_size,
-                                          symbol_size));
+                                          symbol_size, redundancy));
         std::cout << "...";
     }
 

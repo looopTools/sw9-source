@@ -48,19 +48,19 @@ int main(int argc, char* argv[])
         field = "binary";
         results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary>>(
             config.itterations(), config.generation_size(),
-            config.symbol_size());
+            config.symbol_size(), config.redundancy());
     } else if (config.field() == 1)
     {
         field = "binary8";
         results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary8>>(
             config.itterations(), config.generation_size(),
-            config.symbol_size());
+            config.symbol_size(), config.redundancy());
     } else if (config.field() == 2)
     {
         field = "binary16";
         results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary16>>(
             config.itterations(), config.generation_size(),
-            config.symbol_size());
+            config.symbol_size(), config.redundancy());
     } else
     {
         std::cout << "Unsupported Finit Filed" << std::endl;
