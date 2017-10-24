@@ -52,7 +52,10 @@ result benchmark(uint32_t generation_size,
 
     // https://github.com/steinwurf/kodo-rlnc/blob/master/examples/encode_decode_simple/encode_decode_simple.cpp
     // https://github.com/steinwurf/kodo-rlnc/blob/master/examples/encode_decode_separate/encode_decode_separate.cpp
-    std::vector<std::vector<uint8_t>> payloads(2 * generation_size,
+    // std::vector<std::vector<uint8_t>> payloads(2 * generation_size,
+    //                                           std::vector<uint8_t>(
+    //                                               encoder->payload_size()));
+    std::vector<std::vector<uint8_t>> payloads(generation_size,
                                               std::vector<uint8_t>(
                                                   encoder->payload_size()));
 
@@ -99,7 +102,6 @@ std::vector<result> run_benchmark(uint32_t itterations, uint32_t generation_size
     for (uint32_t i = 0; i < itterations; ++i) {
         results.push_back(benchmark<Code>(generation_size,
                                           symbol_size, redundancy));
-        std::cout << "...";
     }
 
     return results;

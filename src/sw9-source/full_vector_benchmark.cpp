@@ -72,16 +72,12 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    for (auto res : results)
-    {
-        std::cout << res.to_string() << std::endl;
-    }
-
     std::time_t time_stamp = std::time(nullptr);
 
     std::stringstream ss;
     ss << result_folder  << time_stamp << "_" << benchmark_test << "_"
-       << config.generation_size() << "_" << config.symbol_size();
+       << config.redundancy() << "_" << config.generation_size()
+       << "_" << config.symbol_size();
     auto result_path = ss.str();
 
     auto complete = write_result(results, result_path);
