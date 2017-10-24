@@ -99,10 +99,11 @@ std::vector<result> run_benchmark(uint32_t itterations, uint32_t generation_size
     std::cout << "Experiment Started " << std::endl;
 
     std::vector<result> results;
+
     for (uint32_t i = 0; i < itterations; ++i) {
         results.push_back(benchmark<Code>(generation_size,
                                           symbol_size, redundancy));
+        std::cout << i << std::endl;
     }
-
     return results;
 }
