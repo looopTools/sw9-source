@@ -1,0 +1,5 @@
+generation_size:8
+symbol_size:256
+redundancy:0
+finit_field:1
+itterations:10000
