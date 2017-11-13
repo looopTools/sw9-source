@@ -21,7 +21,7 @@ def write_to_config(config, number, generation_size):
 def create_config(data_size, generation_size, itterations,
                   finite_field, redundancy):
 
-    symbol_size = math.floor(data_size / generation_size)
+    symbol_size = int(math.floor(data_size / generation_size))
     return """generation_size:{}
 symbol_size:{}
 redundancy:{}
