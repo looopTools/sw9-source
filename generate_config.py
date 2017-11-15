@@ -5,6 +5,8 @@ one_kb = 1024
 one_mb = one_kb * one_kb
 ten_mb = 10 * one_mb
 twenty_mb = 2 * ten_mb
+thirdtwo_mb = 32 * one_mb
+
 one_gb = 1024 * one_mb
 two_gb = 2 * one_gb
 
