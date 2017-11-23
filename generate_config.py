@@ -6,11 +6,15 @@ one_mb = one_kb * one_kb
 ten_mb = 10 * one_mb
 twenty_mb = 2 * ten_mb
 thirdtwo_mb = 32 * one_mb
+six = 64 * one_mb
+oneh = 128 * one_mb
+twof = 256 * one_mb
+fivet = 512 * one_mb
 
 one_gb = 1024 * one_mb
 two_gb = 2 * one_gb
 
-sizes = [one_kb, one_mb, ten_mb, twenty_mb, one_gb, two_gb]
+sizes = [one_kb, one_mb, ten_mb, twenty_mb, thirdtwo_mb, six, oneh, twof, fivet, one_gb, two_gb]
 PATH = './configs/'
 def write_to_config(config, number, generation_size):
     config_file = '{}{}-config-{}'.format(PATH,generation_size, number)
