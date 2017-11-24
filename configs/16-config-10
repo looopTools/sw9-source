@@ -2,4 +2,4 @@ generation_size:16
 symbol_size:67108864
 redundancy:0
 finite_field:1
-itterations:10000
+itterations:1000

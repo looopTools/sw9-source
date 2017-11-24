@@ -36,15 +36,19 @@ itterations:{}""".format(generation_size, symbol_size, redundancy,
                                       finite_field, itterations)
 
 def main():
+
+
     generation_size = int(input('Generation Size: '))
     finite_field = input('finite_field(1,2,3): ')
     itterations = input('itterations(std=10k): ')
     redundancy = input('redundancy(std=0): ')
 
-    if len(itterations) == 0:
-        itterations = 10000
-    if len(redundancy) == 0:
-        redundancy = 0
+
+
+    # if len(itterations) == 'std':
+    #     itterations = 10000
+    # if len(redundancy) == 'std':
+    #     redundancy = 0
 
     x = 1
     for i in sizes:
