@@ -1,3 +1,5 @@
+// Benchmark for peptual based encoders
+
 ////////////////////////////////////////////////////////////////////////////////
 // Copyright (c) 2017 Lars Nielsen
 ////////////////////////////////////////////////////////////////////////////////
@@ -8,9 +10,9 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 ////////////////////////////////////////////////////////////////////////////////
-// Encoder Benchmark for Systematic RLNC CODES
+// Encoder Benchmark for codes which can only be psuedo_systematic  RLNC CODES
 // This file contains the benchmarking code for RLNC Codes able to run
-// in a systematic or non systematic form
+// in a psudo-systematic or non systematic form
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "result.hpp"
@@ -61,10 +63,6 @@ result benchmark(uint32_t generation_size,
 
     typename Code::factory factory(generation_size, symbol_size);
     auto encoder = factory.build();
-
-    // If Systematic is off, the linear combination of packets
-    // Will happen along the way
-    encoder->set_systematic_off();
 
     // https://github.com/steinwurf/kodo-rlnc/blob/master/examples/encode_decode_simple/encode_decode_simple.cpp
     // https://github.com/steinwurf/kodo-rlnc/blob/master/examples/encode_decode_separate/encode_decode_separate.cpp

@@ -20,6 +20,10 @@ def build(bld):
                 source='./src/sw9-source/on_the_fly_benchmark.cpp',
                 target='on_the_fly_benchmark',
                 use=['kodo_rlnc_includes'])
+    bld.program(features='cxx',
+                source='./src/sw9-source/perpetual_encoder_benchmark.cpp',
+                target='perpetual_encoder_benchmark',
+                use=['kodo_rlnc_includes'])
     # Export kodo-rlnc includes
     # bld(name='rlnc-benchmark',
     #     includes='./src',
