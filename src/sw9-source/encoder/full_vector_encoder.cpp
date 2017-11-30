@@ -1,8 +1,27 @@
-// Full Vector Benchmark
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2017 Lars Nielsen
+////////////////////////////////////////////////////////////////////////////////
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+////////////////////////////////////////////////////////////////////////////////
 
-#include "config.hpp"
-#include "benchmark.hpp"
+#include "../config.hpp"
+#include "../config_reader.hpp"
+#include "encoder_benchmark.hpp"
 
+// Kodo includes
+#include <storage/storage.hpp>
+
+#include <fifi/fifi_utils.hpp>
+
+#include <kodo_rlnc/full_vector_codes.hpp>
+#include <kodo_core/set_trace_stdout.hpp>
+
+// Standard library includes
 #include <chrono>
 #include <algorithm>
 #include <cassert>
@@ -13,16 +32,8 @@
 #include <tuple>
 #include <sstream>
 
-
-#include "config.hpp"
-#include "config_reader.hpp"
-
-
-#include <iostream>
-
 int main(int argc, char* argv[])
 {
-
     if (argc < 2)
     {
         std::cout << "file path must be provided" << std::endl;
@@ -33,7 +44,7 @@ int main(int argc, char* argv[])
     std::string result_folder = argv[2];
     std::string benchmark_test = "full_vector_encoder";
 
-    auto config = read_config(config_file);
+        auto config = read_config(config_file);
     std::cout << config.symbol_size() << std::endl;
 
     std::vector<result> results;
@@ -44,19 +55,19 @@ int main(int argc, char* argv[])
         field = "binary";
         results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary>>(
             config.itterations(), config.generation_size(),
-            config.symbol_size(), config.redundancy());
+            config.symbol_size(), config.redundancy(), config.is_systematic());
     } else if (config.field() == 1)
     {
         field = "binary8";
         results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary8>>(
             config.itterations(), config.generation_size(),
-            config.symbol_size(), config.redundancy());
+            config.symbol_size(), config.redundancy(), config.is_systematic());
     } else if (config.field() == 2)
     {
         field = "binary16";
         results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary16>>(
             config.itterations(), config.generation_size(),
-            config.symbol_size(), config.redundancy());
+            config.symbol_size(), config.redundancy(), config.is_systematic());
     } else
     {
         std::cout << "Unsupported Finit Filed" << std::endl;
@@ -71,8 +82,8 @@ int main(int argc, char* argv[])
     std::time_t time_stamp = std::time(nullptr);
 
     std::stringstream ss;
-    ss << result_folder  << time_stamp << "_" << benchmark_test << "_"
-       << config.redundancy() << "_" << config.generation_size()
+    ss << result_folder  << time_stamp << "_" << benchmark_test << "_" << field
+       << "_" << config.redundancy() << "_" << config.generation_size()
        << "_" << config.symbol_size();
     auto result_path = ss.str();
 
@@ -83,5 +94,5 @@ int main(int argc, char* argv[])
                   << result_path << std::endl;
     }
 
-    return 0;
+
 }

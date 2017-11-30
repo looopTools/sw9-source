@@ -57,10 +57,21 @@ public:
     {
         m_field = field;
     }
+
+    bool is_systematic()
+    {
+        return m_is_systematic;
+    }
+
+    void set_is_systematic(bool is_systematic)
+    {
+        m_is_systematic = is_systematic;
+    }
 private:
     uint32_t m_symbol_size;
     uint32_t m_generation_size;
     uint32_t m_redundancy;
     uint32_t m_itterations;
     uint16_t m_field;
+    bool m_is_systematic;
 };

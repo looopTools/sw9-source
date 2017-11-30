@@ -39,8 +39,15 @@ void set_parameter(config* conf, int setting, int line_number)
         conf->set_redundancy(setting);
     } else if (line_number == 3){
         conf->set_field(setting);
-    } else {
+    } else if (line_number == 4){
         conf->set_itterations(setting);
+    } else {
+        if (setting == 1) {
+            conf->set_is_systematic(true);
+        } else {
+            conf->set_is_systematic(false);
+        }
+
     }
 
 }

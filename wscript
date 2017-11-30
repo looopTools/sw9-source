@@ -11,6 +11,10 @@ def build(bld):
         'DEFINES_STEINWURF_VERSION',
         'STEINWURF_KODO_RLNC_VERSION="{}"'.format(VERSION))
 
+    bld.program(features='cxx',
+                source='./src/sw9-source/encoder/full_vector_encoder.cpp',
+                target='full_vector_encoder',
+                use=['kodo_rlnc_includes'])
 
     bld.program(features='cxx',
                 source='./src/sw9-source/full_vector_benchmark.cpp',
