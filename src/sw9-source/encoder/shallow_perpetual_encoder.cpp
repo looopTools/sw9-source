@@ -11,14 +11,14 @@
 
 #include "../config.hpp"
 #include "../config_reader.hpp"
-#include "encoder_benchmark.hpp"
+#include "perpetual_encoder_benchmark.hpp"
 
 // Kodo includes
 #include <storage/storage.hpp>
 
 #include <fifi/default_field.hpp>
 
-#include <kodo_rlnc/full_vector_codes.hpp>
+#include <kodo_rlnc/shallow_perpetual_encoder.hpp>
 #include <kodo_core/set_trace_stdout.hpp>
 
 // Standard library includes
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 
     std::string config_file = argv[1];
     std::string result_folder = argv[2];
-    std::string benchmark_test = "full_vector_encoder";
+    std::string benchmark_test = "perpetual_encoder";
 
         auto config = read_config(config_file);
     std::cout << config.symbol_size() << std::endl;
@@ -53,19 +53,19 @@ int main(int argc, char* argv[])
     if (config.field() == 0)
     {
         field = "binary";
-        results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary>>(
+        results = run_benchmark<kodo_rlnc::perpetual_encoder<fifi::binary>>(
             config.itterations(), config.generation_size(),
             config.symbol_size(), config.redundancy(), config.is_systematic());
     } else if (config.field() == 1)
     {
         field = "binary8";
-        results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary8>>(
+        results = run_benchmark<kodo_rlnc::perpetual_encoder<fifi::binary8>>(
             config.itterations(), config.generation_size(),
             config.symbol_size(), config.redundancy(), config.is_systematic());
     } else if (config.field() == 2)
     {
         field = "binary16";
-        results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary16>>(
+        results = run_benchmark<kodo_rlnc::perpetual_encoder<fifi::binary16>>(
             config.itterations(), config.generation_size(),
             config.symbol_size(), config.redundancy(), config.is_systematic());
     } else

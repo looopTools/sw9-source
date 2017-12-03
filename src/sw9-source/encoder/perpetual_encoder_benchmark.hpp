@@ -43,9 +43,9 @@ result encoder_benchmark(uint32_t generation_size, uint32_t symbol_size,
 
     // If systematic is off, the linear combination of packets
     // will happen along the way
-    if (!systematic)
+    if (systematic)
     {
-        encoder->set_systematic_off();
+        encoder->set_pseudo_systematic(true);
     }
 
     std::vector<std::vector<uint8_t>> payloads(generation_size,

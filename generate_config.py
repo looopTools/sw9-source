@@ -25,15 +25,22 @@ def write_to_config(config, number, generation_size):
 
 
 def create_config(data_size, generation_size, itterations,
-                  finite_field, redundancy):
+                  finite_field, redundancy, systematic):
 
     symbol_size = int(math.floor(data_size / generation_size))
-    return """generation_size:{}
+
+    res =  """generation_size:{}
 symbol_size:{}
 redundancy:{}
 finite_field:{}
 itterations:{}""".format(generation_size, symbol_size, redundancy,
                                       finite_field, itterations)
+
+    if not systematic == None:
+        sys = '\nsystematic:{}'.format(int(systematic))
+        res = res + sys
+
+    return res
 
 def main():
 
@@ -42,9 +49,10 @@ def main():
     finite_field = input('finite_field(1,2,3): ')
     itterations = input('itterations(std=10k): ')
     redundancy = input('redundancy(std=0): ')
-
-
-
+    possible_systematic = input('Possible Systematic: [True/False]: ')
+    is_systematic = None
+    if possible_systematic:
+        is_systematic = input('Systematic on/of [True/False]: ')
     # if len(itterations) == 'std':
     #     itterations = 10000
     # if len(redundancy) == 'std':
@@ -53,7 +61,7 @@ def main():
     x = 1
     for i in sizes:
         config = create_config(i, generation_size, itterations,
-                  finite_field, redundancy)
+                               finite_field, redundancy, is_systematic)
         write_to_config(config, x, generation_size)
         x = x + 1
 

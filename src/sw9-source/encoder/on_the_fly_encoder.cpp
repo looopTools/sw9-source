@@ -1,12 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2017 Lars Nielsen
+// Copyright (c) 2017 Lars Nielsen                                            //
 ////////////////////////////////////////////////////////////////////////////////
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// Permission is hereby granted, free of charge, to any person obtaining a    //
+// copy of this software and associated documentation files (the "Software"), //
+// to deal in the Software without restriction, including without limitation  //
+// the  rights to use, copy, modify, merge, publish, distribute, sublicense,  //
+// and/or sell copies of the Software, and to permit persons to whom the      //
+// Software is furnished to do so, subject to the following conditions:       //
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "../config.hpp"
@@ -18,7 +18,7 @@
 
 #include <fifi/default_field.hpp>
 
-#include <kodo_rlnc/full_vector_codes.hpp>
+#include <kodo_rlnc/on_the_fly_codes.hpp>
 #include <kodo_core/set_trace_stdout.hpp>
 
 // Standard library includes
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 
     std::string config_file = argv[1];
     std::string result_folder = argv[2];
-    std::string benchmark_test = "full_vector_encoder";
+    std::string benchmark_test = "on_the_fly_encoder";
 
         auto config = read_config(config_file);
     std::cout << config.symbol_size() << std::endl;
@@ -53,19 +53,19 @@ int main(int argc, char* argv[])
     if (config.field() == 0)
     {
         field = "binary";
-        results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary>>(
+        results = run_benchmark<kodo_rlnc::on_the_fly_encoder<fifi::binary>>(
             config.itterations(), config.generation_size(),
             config.symbol_size(), config.redundancy(), config.is_systematic());
     } else if (config.field() == 1)
     {
         field = "binary8";
-        results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary8>>(
+        results = run_benchmark<kodo_rlnc::on_the_fly_encoder<fifi::binary8>>(
             config.itterations(), config.generation_size(),
             config.symbol_size(), config.redundancy(), config.is_systematic());
     } else if (config.field() == 2)
     {
         field = "binary16";
-        results = run_benchmark<kodo_rlnc::full_vector_encoder<fifi::binary16>>(
+        results = run_benchmark<kodo_rlnc::on_the_fly_encoder<fifi::binary16>>(
             config.itterations(), config.generation_size(),
             config.symbol_size(), config.redundancy(), config.is_systematic());
     } else

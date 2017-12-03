@@ -11,23 +11,38 @@ def build(bld):
         'DEFINES_STEINWURF_VERSION',
         'STEINWURF_KODO_RLNC_VERSION="{}"'.format(VERSION))
 
+
     bld.program(features='cxx',
                 source='./src/sw9-source/encoder/full_vector_encoder.cpp',
-                target='full_vector_encoder',
+                target='full_vector_encoder_benchmark',
                 use=['kodo_rlnc_includes'])
 
     bld.program(features='cxx',
-                source='./src/sw9-source/full_vector_benchmark.cpp',
-                target='full_vector_benchmark',
+                source='./src/sw9-source/encoder/on_the_fly_encoder.cpp',
+                target='on_the_fly_encoder_benchmark',
                 use=['kodo_rlnc_includes'])
+
     bld.program(features='cxx',
-                source='./src/sw9-source/on_the_fly_benchmark.cpp',
-                target='on_the_fly_benchmark',
+                source='./src/sw9-source/encoder/actual_on_the_fly_encoder.cpp',
+                target='actual_on_the_fly_encoder_benchmark',
                 use=['kodo_rlnc_includes'])
+
     bld.program(features='cxx',
-                source='./src/sw9-source/perpetual_encoder_benchmark.cpp',
+                source='./src/sw9-source/encoder/perpetual_encoder.cpp',
                 target='perpetual_encoder_benchmark',
                 use=['kodo_rlnc_includes'])
+
+    bld.program(features='cxx',
+                source='./src/sw9-source/encoder/shallow_full_vector_encoder.cpp',
+                target='shallow_full_vector_encoder_benchmark',
+                use=['kodo_rlnc_includes'])
+
+    bld.program(features='cxx',
+                source='./src/sw9-source/encoder/shallow_perpetual_encoder.cpp',
+                target='shallow_perpetual_encoder_benchmark',
+                use=['kodo_rlnc_includes'])
+
+
     # Export kodo-rlnc includes
     # bld(name='rlnc-benchmark',
     #     includes='./src',
