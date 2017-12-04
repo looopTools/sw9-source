@@ -76,8 +76,8 @@ int main(int argc, char* argv[])
 
     std::stringstream ss;
     ss << result_folder  << time_stamp << "_" << benchmark_test << "_"
-       << config.redundancy() << "_" << config.generation_size()
-       << "_" << config.symbol_size();
+       << config.field()  << "_" << config.redundancy() << "_"
+       << config.generation_size() << "_" << config.symbol_size();
     auto result_path = ss.str();
 
     auto complete = write_result(results, result_path);
