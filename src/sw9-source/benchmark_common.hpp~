@@ -1,0 +1,60 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2017 Lars Nielsen                                            //
+////////////////////////////////////////////////////////////////////////////////
+// Permission is hereby granted, free of charge, to any person obtaining a    //
+// copy of this software and associated documentation files (the "Software"), //
+// to deal in the Software without restriction, including without limitation  //
+// the  rights to use, copy, modify, merge, publish, distribute, sublicense,  //
+// and/or sell copies of the Software, and to permit persons to whom the      //
+// Software is furnished to do so, subject to the following conditions:       //
+////////////////////////////////////////////////////////////////////////////////
+// Encoder Benchmark for codes which can only be psuedo_systematic  RLNC CODES//
+// This file contains the benchmarking code for RLNC Codes able to run        //
+// in a psudo-systematic or non systematic form                               //
+////////////////////////////////////////////////////////////////////////////////
+
+#include <storage/storage.hpp>
+
+#include <fifi/default_field.hpp>
+
+#include <kodo_rlnc/full_vector_codes.hpp>
+#include <kodo_core/set_trace_stdout.hpp>
+
+
+bool write_result(std::vector<result> results, std::string file_path)
+{
+    std::ofstream result_file;
+    result_file.open(file_path);
+    for (auto result : results)
+    {
+        result_file << result.to_string() << std::endl;
+    }
+    result_file.close();
+    return true;
+}
+
+uint32_t random_index(uint32_t length)
+{
+    std::srand(std::time(0)); // use current time as seed for random generator
+    return static_cast<uint32_t>(std::rand() % length - 1);  // generates a random number between 0 and length -1
+
+}
+
+template<typename Code>
+std::vector<result> run_benchmark(uint32_t itterations, uint32_t generation_size,
+                                  uint32_t symbol_size, uint32_t redundancy,
+                                  bool systematic)
+{
+
+    std::cout << "Experiment Started " << std::endl;
+
+    std::vector<result> results;
+
+    for (uint32_t i = 0; i < itterations; ++i) {
+        results.push_back(encoder_benchmark<Code>(generation_size,
+                                                  symbol_size, redundancy,
+                                                  systematic));
+    }
+    std::cout << "Experiment Finished" << std::endl;
+    return results;
+}

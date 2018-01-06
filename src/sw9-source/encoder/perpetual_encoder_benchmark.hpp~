@@ -1,0 +1,84 @@
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2017 Lars Nielsen
+////////////////////////////////////////////////////////////////////////////////
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+////////////////////////////////////////////////////////////////////////////////
+// Encoder Benchmark for codes which can only be psuedo_systematic  RLNC CODES
+// This file contains the benchmarking code for RLNC Codes able to run
+// in a psudo-systematic or non systematic form
+////////////////////////////////////////////////////////////////////////////////
+
+#include "result.hpp"
+#include "../benchmark_common.hpp"
+
+// Kodo Includes
+#include <storage/storage.hpp>
+
+// Standard library includes
+#include <chrono>
+#include <algorithm>
+#include <cassert>
+#include <cstdint>
+#include <ctime>
+#include <vector>
+#include <cstdlib>
+#include <string>
+#include <iostream>
+#include <fstream>
+
+template<typename Code>
+result encoder_benchmark(uint32_t generation_size, uint32_t symbol_size,
+                         uint32_t redundancy, bool systematic)
+{
+        // Seed random generator
+    srand(static_cast<uint32_t>(time(0)));
+
+    typename Code::factory factory(generation_size, symbol_size);
+    auto encoder = factory.build();
+
+    // https://github.com/steinwurf/kodo-rlnc/blob/master/examples/encode_decode_simple/encode_decode_simple.cpp
+    // https://github.com/steinwurf/kodo-rlnc/blob/master/examples/encode_decode_separate/encode_decode_separate.cpp
+    // std::vector<std::vector<uint8_t>> payloads(2 * generation_size,
+    //                                           std::vector<uint8_t>(
+    //                                               encoder->payload_size()));
+    std::vector<std::vector<uint8_t>> payloads(generation_size,
+                                              std::vector<uint8_t>(
+                                                  encoder->payload_size()));
+
+    std::vector<uint8_t> data(encoder->block_size());
+
+    //std::cout << encoder->block_size() << std::endl; // 6720
+
+    std::generate(data.begin(), data.end(), rand);
+
+    encoder->set_const_symbols(storage::storage(data));
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    // INCREASE IF SYS IS OFF
+    for (auto& payload : payloads)
+    {
+         encoder->write_payload(payload.data());
+    }
+
+    for (uint32_t i = 0; i < redundancy; ++i)
+    {
+        encoder->write_payload(payloads[random_index(payloads.size())].data());
+        // encoder->write_payload(payloads[random_index(payloads.length())];
+    }
+
+
+    auto end = std::chrono::high_resolution_clock::now();
+
+    auto s = std::chrono::duration_cast<std::chrono::microseconds>(
+        start.time_since_epoch());
+    auto e = std::chrono::duration_cast<std::chrono::microseconds>(
+        end.time_since_epoch());
+    return result(s, e, generation_size, symbol_size);
+
+}

@@ -1,5 +1,5 @@
-generation_size:32
-symbol_size:2097152
+generation_size:8
+symbol_size:8388608
 redundancy:0
 finite_field:1
 itterations:1000

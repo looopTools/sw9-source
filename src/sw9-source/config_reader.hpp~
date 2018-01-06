@@ -1,0 +1,52 @@
+#include "config.hpp"
+
+#include <fstream>
+#include <sstream>
+#include <string>
+
+
+
+int extract_config(std::string line)
+{
+
+    std::stringstream ss;
+    ss.str(line);
+    std::string temp;
+    while (std::getline(ss, temp, ':'))
+    {
+
+    }
+
+    auto setting = std::stoi(temp);
+    return setting;
+}
+
+void set_parameter(config* conf, int setting, int line)
+{
+    switch(line)
+    {
+    case line == 0:
+        conf->set_symbol_size(setting);
+        break;
+    default:
+        break;
+    }
+}
+
+config read_config(std::string file_path)
+{
+
+    std::ifstream file(file_path);
+    string line;
+    int line_number = 0;
+
+    autp conf = config();
+
+    while (std::getLine(file, line))
+    {
+        set_parameter(conf, extract_config(line), line_number);
+        ++line_number;
+
+    }
+
+}

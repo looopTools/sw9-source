@@ -1,0 +1,18 @@
+#include <cstdint>
+#include <chrono>
+
+class result {
+public:
+    result() {
+
+    }
+
+    double throughput() {
+
+    }
+private:
+    uint64_t m_data_size;
+    std::chrono::microseconds start;
+    std::chrono::microseconds end;
+
+};

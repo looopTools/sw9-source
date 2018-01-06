@@ -1,0 +1,6 @@
+generation_size:32
+symbol_size:128
+redundancy:0
+finite_field:1
+itterations:1000
+systematic:0
