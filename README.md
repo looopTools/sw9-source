@@ -17,6 +17,13 @@ as part of my M.Sc Software. The source code is used for performance testing of 
 This repository and the code is under the MIT software License, for further information see the LICENSE
 file include in this repository
 
+## Building
+
+To build the project execute `python waf configure build`
+
+## To run Benchmark
+
+To run benchmark execute `sh RUN_BENCHMARK.sh`
 
 ## /configs
 Contains the configuration files used in the project. If you want to create your own configuration
@@ -39,5 +46,13 @@ data analysis and visualise the data result. All this is available in a Jupyter 
 
 This section contains a list of elements I would like to change or improve about the benchmark suite.
 
+
+# Project overview
+
+Here a an overview of where files are locate are presented.
+
+`/configs/` contains the configurations files used for the experiments
+`/results/` contains the result files for all experiments
+`/src/sw9-source/encoder` contains the source code used for the benchmarks
 
 [:1] http://jupyter.org/install.html Jupyter Notebook installation
